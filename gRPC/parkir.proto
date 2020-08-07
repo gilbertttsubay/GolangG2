@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package TugasParkir;
+option go_package="tugasparkirpb";
+
+
+// request dan response buat masuk parkir
+message MasukParkir{
+    string jenisKendaraan=1;
+    string pelatNomor = 2;
+}
+
+message MasukParkirRequest{
+    MasukParkir masukParkir = 1;
+}
+
+message MasukParkirResponse{
+    int64 generatedId = 1;
+}
+
+// request dan response buat keluar parkir
+message KeluarParkir {
+    int64 idKeluar = 1;
+}
+
+message KeluarParkirRequest {
+    KeluarParkir keluarParkir = 1;
+}
+
+message KeluarParkirResponse {
+    int64 totalBiaya = 1;
+}
+
+
+service parkirService{
+    rpc MasukParkir (MasukParkirRequest) returns (MasukParkirResponse){};
+    rpc KeluarParkir (KeluarParkirRequest) returns (KeluarParkirResponse){};
+}
