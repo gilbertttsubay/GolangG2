@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package Parkir_gRPC_Server_Streaming_rpc;
+option go_package = "parkirpb";
+
+//request dan response pada saat masuk parkir
+
+message MasukParkir{
+    string JenisKendaraan = 1;
+    string PelatNomor = 2;
+}
+
+message MasukParkirRequest {
+    MasukParkir masukParkir = 1;
+}
+
+message MasukParkirResponse {
+    int64 GeneratedId = 1;
+}
+
+//request dan response pada saat keluar parkir
+
+message KeluarParkir {
+    int64 IdKeluar = 1;
+}
+
+message KeluarParkirRequest {
+    KeluarParkir keluarParkir = 1;
+}
+
+message KeluarParkirResponse {
+    int64 TotalBiaya = 1;
+}
+
+service ParkirService {
+    rpc MasukParkirProto (MasukParkirRequest) returns (stream MasukParkirResponse){}
+    rpc KeluarParkirProto (KeluarParkirRequest) returns (stream KeluarParkirResponse){}
+}
